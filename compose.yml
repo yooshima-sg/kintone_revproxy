@@ -6,8 +6,8 @@ services:
     container_name: kintone_revproxy
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./example.com.pem:/example.com.pem
-      - ./example.com-key.pem:/example.com-key.pem
+      - ./example.com.pem:/example.com.pem:ro
+      - ./example.com-key.pem:/example.com-key.pem:ro
     ports:
       - 80:80
       - 443:443
