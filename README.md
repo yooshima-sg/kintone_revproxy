@@ -13,6 +13,10 @@
 
 ## 動かしかた
 
+1. `mkcert`をインストールします。
+
+   - `CAROOT=$(pwd)/CA mkcert -install` を実行して、自己中間証明書をシステムにインストールします。
+
 1. 本リポジトリをクローンして、 vi等のテキストエディタで`ngine.conf`の修正箇所を編集する。
    ```
    git clone https://path/to/kintone_revproxy.git
