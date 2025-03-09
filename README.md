@@ -8,11 +8,13 @@
 
 ## 必要なもの
 
+- mkcert
 - Docker
 - Docker Compose
 
 ## 動かしかた
 
+1. Docker Compose をインストールします。
 1. `mkcert`をインストールします。
 
    - `CAROOT=$(pwd)/CA mkcert -install` を実行して、自己中間証明書をシステムにインストールします。
