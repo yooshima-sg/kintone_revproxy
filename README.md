@@ -2,19 +2,33 @@
 
 **本コンテナは、検証するためのものです。**
 
-## 検証結果
+## 検証
 
-リバプロに別URLをKintoneへ転送する設定しても、それを経由する通信は、Kintoneで本来のURLへリダイレクトされてしまうため、意味がない。
+リバプロでFormBridgeの公開フォームアクセスする。
+
+http://0e80ac6c.example.com/public/cd81ae5de982ed6dfdd854684299d35315043e5ef95dd27a2dc6dd888c8cda40
+       <--[A]-> <---[B]--->        <-------------------------[C]---------------------------------->
+
+    [A]: Formbridgeのサブドメイン(有料版で変更可能)
+    [B]: プロキシドメイン
+    [C]: FormID
+
+リバプロのサブドメインをFormBridgeのサブドメインと一致させることで動作する。
+ただし、最終的に FormBridge のURLにリダイレクトされる。上記のURLなら以下にリダイレクトされる
+
+https://0e80ac6c.form.kintoneapp.com/public/cd81ae5de982ed6dfdd854684299d35315043e5ef95dd27a2dc6dd888c8cda39
 
 ## 必要なもの
 
 - mkcert
 - Docker
-- Docker Compose
+  - Docker Compose v2 プラグイン
 
 ## 動かしかた
 
-1. Docker Compose をインストールします。
+### サーバ側
+
+1. Docker 及び、Docker Compose v2 プラグインをインストールします。
 1. `mkcert`をインストールします。
 
    - `CAROOT=$(pwd)/CA mkcert -install` を実行して、自己中間証明書をシステムにインストールします。
@@ -29,7 +43,12 @@
    ```
    docker compose up
    ```
-1. `hosts`ファイルに、 `127.0.0.1     example.com` を追加する。
-1. Webブラウザを起動し、`https://example.com`にアクセスする。
+
+
+### クライアント側
+
+1. `hosts`ファイルに、 `サーバのIP     [A].example.com` を追加する。
+1. certs/mkecert-nokey.p12 を 信頼するRoot証明書にインポートする。
+1. Webブラウザを起動し、`https://[A].example.com`にアクセスする。
 
 
